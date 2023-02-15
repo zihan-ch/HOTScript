@@ -2,6 +2,12 @@ import { Args, Call, Call2, Strings } from "../src/index";
 import { Equal, Expect } from "../src/internals/helpers";
 
 describe("Strings", () => {
+  it("At", () => {
+    type res1 = Call<Strings.At<3>, "Hello">;
+    //    ^?
+    type test1 = Expect<Equal<res1, "l">>;
+  });
+
   it("Length", () => {
     type res1 = Call<Strings.Length, "">;
     //    ^?

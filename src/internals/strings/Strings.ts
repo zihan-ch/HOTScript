@@ -1,8 +1,9 @@
-import { Fn, MergeArgs, Pipe, placeholder, unset } from "../core/Core";
+import { Call, Fn, MergeArgs, Pipe, placeholder, unset } from "../core/Core";
 import { Std } from "../std/Std";
 import { Tuples } from "../tuples/Tuples";
 import * as H from "../helpers";
 import * as Impl from "./impl/strings";
+import { Numbers } from "../numbers/Numbers";
 
 export namespace Strings {
   export type Stringifiable =
@@ -12,6 +13,20 @@ export namespace Strings {
     | bigint
     | null
     | undefined;
+
+  /**
+   * Get the character in a string on a specific index.
+   * @warning - 🔥🔥🔥does not work with emojis since they are multiple characters🔥🔥🔥
+   * @param args[0] - The string.
+   * @param index - The index of the character you want to get
+   * @returns The found character.
+   * @example
+   * ```ts
+   * type T0 = Call<Strings.At<2>,"Hello">; // "l"
+   */
+  export interface At<index extends number> extends Fn {
+    output: Impl.StringToTuple<this["args"][0]>[index];
+  }
 
   /**
    * Get the length of a string.
